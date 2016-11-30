@@ -1,0 +1,10 @@
+ChangeLog*
+CHANGELOG*
+*.tmp
+libs/*
+!libs/*.xml
+release/**
+tmp/**
+tests/OUT*
+tests/*.bat
+luac.out
