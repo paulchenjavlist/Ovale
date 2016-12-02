@@ -248,6 +248,7 @@ do
                             if start and start <= API_GetTime() and OvaleFuture.inCombat and UnitExists("target") then
                         
                             local spell, unit = GetSpellInfo(self.actions[3].spellId), 'target'
+                                    
                                     if NeP_Selected then
 						                  NeP:Queue(spell, unit)
 					               end
@@ -265,12 +266,28 @@ do
                             --print("+++ Icon %d", k, 'Action1', self.actions[1].spellId, 'Action2', self.actions[2].spellId, 'Action3', self.actions[3].spellId, 'Start1', start, 'state', state[2])
                         --end
                         elseif self.actions[2].spellId then
+                        local spell, unit = GetSpellInfo(self.actions[2].spellId), 'target'
+                        print('Last',state.lastSpellId,'Next', self.actions[2].spellId)
                                 if start and start <= API_GetTime() and OvaleFuture.inCombat and UnitExists("target") then
+                           
                                 
-                                local spell, unit = GetSpellInfo(self.actions[2].spellId), 'target'
+                                
+                                    if spell == "Void Bolt" then
+                                        spell = "Void Eruption"
+                                    end
                                     if NeP_Selected then
+                                        --print(spell)
 						                  NeP:Queue(spell, unit)
                                     end
+                                elseif state.lastSpellId == 15407 and self.actions[2].spellId ~= 15407 then
+                                    if spell == "Void Bolt" then
+                                        spell = "Void Eruption"
+                                    end
+                                    if NeP_Selected then
+                                        --print(spell)
+						                  NeP:Queue(spell, unit)
+                                    end
+                                    
                                 else self.actions[2].spellId = nil
                                 end
                             --print('waiting')
