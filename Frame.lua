@@ -267,7 +267,7 @@ do
                         --end
                         elseif self.actions[2].spellId then
                         local spell, unit = GetSpellInfo(self.actions[2].spellId), 'target'
-                        print('Last',state.lastSpellId,'Next', self.actions[2].spellId)
+                        --print('Last',state.lastSpellId,'Next', self.actions[2].spellId)
                                 if start and start <= API_GetTime() and OvaleFuture.inCombat and UnitExists("target") then
                            
                                 
