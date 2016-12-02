@@ -162,7 +162,7 @@ do
 		for k,action in pairs(self.actions) do
 			if action.spellId == spellId then
 				if not action.waitStart then
-					-- print("sort "..spellId.." parfait")
+					--print("sort "..spellId.." parfait")
 					return 1
 				else
 					local now = API_GetTime()
@@ -244,6 +244,39 @@ do
 				-- Refresh the action button for the node.
 				if profile.apparence.enableIcons then
 					self:UpdateActionIcon(state, node, self.actions[k], element, start)
+                        if self.actions[3].spellId then
+                            if start and start <= API_GetTime() and OvaleFuture.inCombat and UnitExists("target") then
+                        
+                            local spell, unit = GetSpellInfo(self.actions[3].spellId), 'target'
+                                    if NeP_Selected then
+						                  NeP:Queue(spell, unit)
+					               end
+                            else self.actions[3].spellId = nil
+                            end
+			             elseif self.actions[1].spellId then
+                            if start and start <= API_GetTime() and OvaleFuture.inCombat and UnitExists("target") then
+                        
+                            local spell, unit = GetSpellInfo(self.actions[1].spellId), 'target'
+                                    if NeP_Selected then
+						                  NeP:Queue(spell, unit)
+					               end
+                            else self.actions[1].spellId = nil
+                            end
+                            --print("+++ Icon %d", k, 'Action1', self.actions[1].spellId, 'Action2', self.actions[2].spellId, 'Action3', self.actions[3].spellId, 'Start1', start, 'state', state[2])
+                        --end
+                        elseif self.actions[2].spellId then
+                                if start and start <= API_GetTime() and OvaleFuture.inCombat and UnitExists("target") then
+                                
+                                local spell, unit = GetSpellInfo(self.actions[2].spellId), 'target'
+                                    if NeP_Selected then
+						                  NeP:Queue(spell, unit)
+                                    end
+                                else self.actions[2].spellId = nil
+                                end
+                            --print('waiting')
+                        end
+
+                    
 				end
 				
 				
@@ -295,13 +328,13 @@ do
 					start = start + actionResourceExtend
                 
 				end
-            elseif NeP and actionType == "spell" and OvaleFuture.inCombat then
-					local spell, unit = GetSpellInfo(actionId), 'target'
+            --elseif NeP and actionType == "spell" and OvaleFuture.inCombat and UnitExists("target") then
+					--local spell, unit = GetSpellInfo(actionId), 'target'
 					--print('NeP Queued:', spell, 'unit:', unit)
 					-- if selected then queue
-					if NeP_Selected then
-						NeP:Queue(spell, unit)
-					end
+					--if NeP_Selected then
+						--NeP:Queue(spell, unit)
+					--end
 			end
 			state:Log("GetAction: start=%s, id=%s", start, actionId)
 
